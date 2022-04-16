@@ -14,6 +14,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 import { ThemeProvider } from "styled-components/native";
 import { theme } from "./src/infrastructure/theme";
+import { RestaurantContextProveder } from "./src/services/restaurants/restaurant.context";
 
 const Tab = createBottomTabNavigator();
 
@@ -54,19 +55,21 @@ export default function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <NavigationContainer>
-          <Tab.Navigator
-            screenOptions={screenOptions}
-            tabBarIcon={{
-              activeTintColor: "tomato",
-              inactiveTintColor: "gray",
-            }}
-          >
-            <Tab.Screen name="Restaurants" component={RestaurantsScreen} />
-            <Tab.Screen name="Settings" component={SettingsScreen} />
-            <Tab.Screen name="Maps" component={MapsScreen} />
-          </Tab.Navigator>
-        </NavigationContainer>
+        <RestaurantContextProveder>
+          <NavigationContainer>
+            <Tab.Navigator
+              screenOptions={screenOptions}
+              tabBarIcon={{
+                activeTintColor: "tomato",
+                inactiveTintColor: "gray",
+              }}
+            >
+              <Tab.Screen name="Restaurants" component={RestaurantsScreen} />
+              <Tab.Screen name="Settings" component={SettingsScreen} />
+              <Tab.Screen name="Maps" component={MapsScreen} />
+            </Tab.Navigator>
+          </NavigationContainer>
+        </RestaurantContextProveder>
       </ThemeProvider>
       <ExpoStatusBar style="auto" />
     </>
